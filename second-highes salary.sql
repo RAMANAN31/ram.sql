@@ -2,7 +2,7 @@ SELECT MAX(Salary) AS SecondHighestSalary
 FROM Employee
 WHERE Salary < (SELECT MAX(Salary) FROM Employee);
 
---This query first selects the maximum salary from the Employee table and then selects the maximum salary from the Employee 
+--This query first selects the maximum salary from the Employee table and then selects the second maximum salary from the Employee 
 table where the salary is less than the maximum salary.
 If there is no second highest salary, the query will return null.
 
