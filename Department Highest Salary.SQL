@@ -33,3 +33,14 @@ from
 (select d.Name as 'Department', e.Name as 'Employee', e.Salary as 'Salary', rank() over(PARTITION by d.Name order by Salary desc) as 'rank'
 from Employee e join Department d on e.DepartmentId=d.Id) as c
 where rank=1
+
+
+using joints
+SELECT d.Name AS Department, e.Name AS Employee, e.Salary AS Salary
+FROM Employee e
+INNER JOIN Department d ON e.DepartmentId = d.Id
+INNER JOIN (
+    SELECT DepartmentId, MAX(Salary) AS MaxSalary
+    FROM Employee
+    GROUP BY DepartmentId
+) m ON e.DepartmentId = m.DepartmentId AND e.Salary = m.MaxSalary;
